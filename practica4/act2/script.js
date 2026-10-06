@@ -1,3 +1,5 @@
 function rest(a,b,c,...param){
-    return param.map(parametro => a,b,c)
+    return [a,b,c,...param]
 }
+
+alert(rest(1,2,3,4,5))
