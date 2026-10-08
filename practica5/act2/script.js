@@ -1,6 +1,20 @@
-const pasillo = ["S", ".", "#", ".", ".", "."]
+const pasillo = [".", ".", "#", ".", ".", "."]
+
+function inicializar(pasillo){
+    
+    let numAleatorio = Math.floor(Math.random() * pasillo.length)
+
+    while(pasillo[numAleatorio] === "#"){
+        numAleatorio = Math.floor(Math.random() * pasillo.length)
+    }
+        
+    
+    pasillo[numAleatorio] = "S"
+    alert("Inicio: \n" + pasillo)
+}
 
 function posicionRobot(pasillo){
+    inicializar(pasillo)
     let robot = 0
     let orden
     const mensajes = []
@@ -32,6 +46,7 @@ function posicionRobot(pasillo){
                     pasillo[robot] = "."
                     robot--
                     alert("aceptado, posición " + robot)
+                    mensajes.push("aceptado, posición " + robot)
                 }
             break
 
@@ -49,6 +64,7 @@ function posicionRobot(pasillo){
                     pasillo[robot] = "."
                     robot++
                     alert("aceptado, posición " + robot)
+                    mensajes.push("aceptado, posición " + robot)
                 }
             break
 
