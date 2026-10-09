@@ -9,7 +9,7 @@ class Libro {
             throw new Error("El autor no puede estar vacio")
         }
 
-        if (isNaN(num_paginas)) {
+        if (!Number.isInteger(num_paginas) || num_paginas <= 0) {
             throw new Error("El numero de páginas debe der ser numérico")
         }
 
@@ -21,12 +21,14 @@ class Libro {
     }
 
     describir() {
-        document.body.innerHTML += ("\nTítulo: " + this.titulo + "Autor: " + this.autor + "Número de páginas: " + this.num_paginas)
+        document.body.innerHTML += ("Título: " + this.titulo + "; Autor: " + this.autor + "; Número de páginas: " + this.num_paginas + ";<br>" )
     }
 
     esExtenso() {
         if (this.num_paginas >= 300) {
-            document.body.innerHTML += ("\nEl libro " + this.titulo + " es extenso: " + this.num_paginas)
+            document.body.innerHTML += ("El libro " + this.titulo + " es extenso: " + this.num_paginas + "<br>" )
+        } else{
+            document.body.innerHTML += ("El libro " + this.titulo + " no es extenso: " + this.num_paginas + "<br>" )
         }
     }
 
