@@ -12,10 +12,9 @@ const textoCafe = `{
 const cafe = JSON.parse(textoCafe)
 console.log(cafe)
 
-document.body.innerHTML += (`<strong><p>LATTE</p></strong>`)
+document.body.innerHTML += ("<strong><p>LATTE</p></strong>")
 
-document.body.innerHTML += (    
-    `<img src="${cafe.image}" style = "height: 300px;">`)
+document.body.innerHTML += (`<img src="${cafe.image}" style = "height: 300px;">`)
 
 
 const fichaCafe = {
@@ -35,17 +34,15 @@ const fichaCafe2 = {
 const textoCafe2 = JSON.stringify(fichaCafe2, null, 2);
 console.log(textoCafe2)
 
-document.body.innerHTML += "<pre>" + textoCafe2 + "</pre>"
+document.body.innerHTML += ("<strong><p>Ficha en formato JSON</p></strong>")
+document.body.innerHTML += ("<pre>" + textoCafe2 + "</pre>")
 
-document.body.innerHTML += (  
-    `<strong><p>Ficha en formato JSON</p></strong>
-    <pre>
-        {
-            "id" + fichaCafe2.id +
-            "nombre": " + fichaCafe2.nombre +
-            "ingredientes": " + fichaCafe2.ingredients
-        }
-    </pre>`
-    )
+const cafe2 = JSON.parse(textoCafe2)
+console.log("Ficha recuperada ", cafe2)
+console.log("¿Incluye imagen? ", ("imagen" in cafe2))
+
+
+
+
 
 
