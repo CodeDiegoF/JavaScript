@@ -1,49 +1,61 @@
-const urlCafe = "https://api.sampleapis.com/coffee/hot/2";
+const urlPokemon = "https://pokeapi.co/api/v2/pokemon?limit=5";
 
-function mostrarCafe(cafe) {
-  const ingredientes = cafe.ingredients
-    .map(ingrediente => `<li>${ingrediente}</li>`)
-    .join("");
 
-  document.body.innerHTML = `
-    <h1>Catálogo de cafés</h1>
-    <article>
-      <h2>${cafe.title}</h2>
-      <img src="${cafe.image}" alt="${cafe.title}" height="300">
-      <p>${cafe.description}</p>
-      <h3>Ingredientes</h3>
-      <ul>${ingredientes}</ul>
-    </article>
-  `;
-}
+const promesaRespuesta = fetch(urlPokemon);
+console.log(promesaRespuesta);
 
-async function obtenerCafe() {
-  document.body.innerHTML = "<h1>Catálogo de cafés</h1><p>Cargando...</p>";
+function mostrarPokemon(pokemon) {
+
+    document.body.innerHTML = `
+      <h1>DATOS POKÉMON</h1>
+      <article style= "border: 1px solid #999; width: 220px">
+        <ul>Número de pokedex: ${pokemon.id}</ul>
+        <ul>${pokemon.name}</ul>
+        <ul> tipo ${pokemon.types[0].type.name}</ul>
+        <img src="${pokemon.sprites.front_default}">
+      </article>
+    `;
+
+  }
+
+async function obtenerDatos() {
+  document.body.innerHTML = "<h1>POKEDEX</h1><p>Cargando...</p>";
 
   try {
-    const respuesta = await fetch(urlCafe);
+    const respuesta = await fetch(urlPokemon);
 
+    
     if (!respuesta.ok) {
       throw new Error(`Error HTTP: ${respuesta.status}`);
     }
+    
+    const listado = await respuesta.json();
+    const urlPrimero = listado.results[0].url;
 
-    const cafe = await respuesta.json();
-    console.log("Café recibido:", cafe);
-    mostrarCafe(cafe);
+    const respuestaPokemon = await fetch(urlPrimero)
+
+    if (!respuestaPokemon.ok) {
+      throw new Error(`Error HTTP: ${respuesta.status}`);
+    }
+
+    const pokemon = await respuestaPokemon.json();
+
+    console.log("Pokémon recibido:", pokemon);
+    mostrarPokemon(pokemon);
   } catch (error) {
-    console.error("No se pudo obtener el café:", error.message);
-    document.body.innerHTML = `
-      <h1>Catálogo de cafés</h1>
-      <p>No se pudo cargar el café: ${error.message}</p>
-    `;
+    console.error("No se pudo obtener el pokémon :", error.message);
+      document.body.innerHTML = `
+        <h1>POKEDEX</h1>
+        <p>No se pudo cargar el pokémon: ${error.message}</p>
+      `;
   } finally {
     console.log("Petición terminada");
   }
 }
 
-document.body.innerHTML = "<h1>Catálogo de cafés</h1><p>Cargando...</p>";
+document.body.innerHTML = "<h1>POKEDEX</h1><p>Cargando...</p>"
 
 
-obtenerCafe();
+obtenerDatos();
 
 
