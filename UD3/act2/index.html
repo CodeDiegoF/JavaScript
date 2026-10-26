@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Lista de la compra por voz</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      transition: background-color 0.5s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .card {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .status {
+      font-weight: bold;
+      color: #007bff;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h1>LISTA DE LA COMPRA</h1>
+    <p>Para añadir un producto di: <strong>"añadir..."</strong></p>
+    <p>Para quitar un producto di: <strong>"quitar..."</strong></p>
+
+    <button id="btnStart">Activar Micrófono</button>
+    <p class="status" id="statusText">Estado: Inactivo</p>
+    <p>Última modificación en la lista: <span id="commandText">-</span></p>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
