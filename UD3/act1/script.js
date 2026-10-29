@@ -62,9 +62,6 @@ if (!SpeechRecognition) {
     // para que "Rojo" y "rojo" se traten igual.
     const transcript = event.results[lastIndex][0].transcript.trim().toLowerCase();
 
-    // Se muestra en pantalla lo que se ha entendido.
-    commandText.textContent = transcript;
-
     let respuesta = "";
     // en respuesta guardamos el transcript
     // includes() busca que esa palabra esté en la frase que hayamos dicho.
@@ -80,33 +77,36 @@ if (!SpeechRecognition) {
       respuesta = transcript;
     } else if (transcript.includes('más grande')) {
       document.body.style.fontSize = '2em';
-      respuesta = transcript; 
+      respuesta = transcript;
     } else if (transcript.includes('más pequeño')) {
       document.body.style.fontSize = '0.5em'
-      respuesta = transcript; 
+      respuesta = transcript;
     } else if (transcript.includes('modo oscuro')) {
       document.body.style.backgroundColor = '#080808';
-      document.body.style.color = '#ffffff';
+      document.body.style.color = '#1a0051';
       respuesta = transcript;
     } else if (transcript.includes('modo claro')) {
       document.body.style.backgroundColor = '#ffffff';
-      document.body.style.color = '#060606';
+      document.body.style.color = '#fff200';
       respuesta = transcript;
-    }else if (transcript.includes('restablecer') || transcript.includes('blanco')) {
+    } else if (transcript.includes('restablecer') || transcript.includes('blanco')) {
       document.body.style.backgroundColor = '#ffffff';
+      document.body.style.color = '#000000';
+      document.body.style.fontSize = '1em';
       respuesta = transcript;
+    }
+
+    // Si respuesta sigue vacía, la frase no era ningún comando y no se cambia nada.
+    if (respuesta === "") {
+      commandText.textContent = "Comando no encontrado";
+      respuesta = "Comando no encontrado";
+    } else {
+      // Se muestra lo que se ha entendido junto con la respuesta.
+      commandText.textContent = transcript;
     }
   };
 
-// Se crea el mensaje que se va a pronunciar, con el texto escrito.  
-const utterance = new SpeechSynthesisUtterance(commandText);
-// Se entrega el mensaje al sintetizador, que empieza a leerlo.
-window.speechSynthesis.speak(utterance);
-/* Si en respuesta no hay un comando que coincida con lo que se ha guardado
-  anteriormente en commandText, escribe que no se ha encontrado comando*/
-if(commandText != respuesta){
-    commandText.textContent = "Comando no encontrado"
-}
+
 
   // Se dispara un error si algo falla (permiso denegado, sin micrófono, sin red...)..
   recognition.onerror = (event) => {
