@@ -48,8 +48,18 @@ function mostrarFicha(pokemon) {
     nombres_habilidades.push(pokemon.abilities[i].ability.name);
   }
   habilidades.textContent = `Habilidades: ${nombres_habilidades.join(", ")}`;
+  
+  const estadisticas = document.createElement("ul");
+  for (let i = 0; i < pokemon.stats.length; i++) {
+    const estadistica = document.createElement("li");
+    estadistica.textContent = `${pokemon.stats[i].stat.name}: ${pokemon.stats[i].base_stat}`;
+    estadisticas.append(estadistica);
+  }
 
-  ficha_pokemon.append(titulo, id, imagen, tipos, altura, peso, habilidades);
+  const titulo_estadisticas = document.createElement("h3");
+  titulo_estadisticas.textContent = "Estadísticas base";
+
+  ficha_pokemon.append(titulo, id, imagen, tipos, altura, peso, habilidades, titulo_estadisticas, estadisticas);
 }
 
 
